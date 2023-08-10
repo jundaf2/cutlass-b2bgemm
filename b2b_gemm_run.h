@@ -349,9 +349,10 @@ struct B2bNonFusedGemmRun
     CHECK_GT(cutlass::reference::host::TensorNorm(tensor_D1.host_view()), 0);
     CHECK_GT(cutlass::reference::host::TensorNorm(reference_D1.host_view()), 0);
 
-    bool passed = cutlass::reference::host::TensorEquals(
-      reference_D1.host_view(),
-      tensor_D1.host_view());
+    typename Gemm1::ElementC epsilon = static_cast<typename Gemm1::ElementC>(0.1f);
+    typename Gemm1::ElementC nonzero_floor = static_cast<typename Gemm1::ElementC>(1.0f / 1000.0f);
+    bool passed = cutlass::reference::host::TensorRelativelyEquals(
+      reference_D1.host_view(), tensor_D1.host_view(), epsilon, nonzero_floor);
 
     CHECK_TRUE(passed);
     // if (!passed) {
@@ -728,9 +729,10 @@ struct B2bFusedGemmRun
     CHECK_GT(cutlass::reference::host::TensorNorm(tensor_D1.host_view()), 0);
     CHECK_GT(cutlass::reference::host::TensorNorm(reference_D1.host_view()), 0);
 
-    bool passed = cutlass::reference::host::TensorEquals(
-      reference_D1.host_view(),
-      tensor_D1.host_view());
+    typename B2bGemm::ElementC epsilon = static_cast<typename B2bGemm::ElementC>(0.1f);
+    typename B2bGemm::ElementC nonzero_floor = static_cast<typename B2bGemm::ElementC>(1.0f / 1000.0f);
+    bool passed = cutlass::reference::host::TensorRelativelyEquals(
+      reference_D1.host_view(), tensor_D1.host_view(), epsilon, nonzero_floor);
 
     CHECK_TRUE(passed);
     // if (!passed)

@@ -275,7 +275,8 @@ int main(int argc, char * const argv[]) {
   cutlass::gemm::GemmCoord gemm_f16_sm80_problem_size_1(M, N, K);
 
   std::vector<bool (*)(cutlass::gemm::GemmCoord, cutlass::gemm::GemmCoord)>funcs = {
-    &run_nonfused_gemm_f16_sm80,
+    &run_nonfused_gemm_f16_sm80
+    ,
     &run_fused_gemm_f16_sm80_rf_res
   };
 
