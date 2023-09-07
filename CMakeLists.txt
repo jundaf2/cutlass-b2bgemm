@@ -65,8 +65,7 @@ include_directories(
 link_directories(${CUDA_TOOLKIT_ROOT_DIR}/lib64/stubs)
 
 foreach(FUSION_GEMM_EXAMPLE
-  fused_two_gemms_f16_sm80_rf
-  # fused_two_gemms_s8_sm80_rf
+  fused_two_gemms_f16_sm80
 )
 
   add_executable(${FUSION_GEMM_EXAMPLE} ${FUSION_GEMM_EXAMPLE}.cu)
